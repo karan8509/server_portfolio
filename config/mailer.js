@@ -1,21 +1,23 @@
 const nodemailer = require("nodemailer");
+require("dotenv").config();
+
 const transport = nodemailer.createTransport({
     service: "gmail",
     port: 587,
     secure: false,
     auth: {
-        user: "kj382542@gmail.com",
-        pass: "ysbb qosn edmj uguu",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
     }
 });
 
-const sendEmail = async ({ name, email, textarea, }) => {
+const sendEmail = async ({ name, email, textarea }) => {
     try {
         await transport.sendMail({
-            from: "Karan Kashyap <kj382542@gmail.com>",
+            from: `Karan Kashyap <${process.env.EMAIL_USER}>`,
             to: email,
             subject: "Thank You!",
-            text: `Hello ${name},\n\nThank you for reaching out!\n\nYour Message: ${textarea}`, // 
+            text: `Hello ${name},\n\nThank you for reaching out!\n\nYour Message: ${textarea}`,
             html: `
                 <h1>Hello ${name},</h1>
                 <p>Thank you for reaching out!</p>
@@ -25,45 +27,35 @@ const sendEmail = async ({ name, email, textarea, }) => {
             `
         });
 
-        console.log(`Email sent successfully to ${email}`);
+        console.log(`✅ Email sent successfully to ${email}`);
     } catch (error) {
-        console.error("Error sending email: ", error);
+        console.error(" Error sending email:", error);
     }
 };
-
-module.exports = sendEmail;
-
-
-
 
 const transportSubscribe = nodemailer.createTransport({
     service: "gmail",
     port: 587,
     secure: false,
     auth: {
-        user: "kj382542@gmail.com",
-        pass: "ysbb qosn edmj uguu",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
     }
 });
 
-export const sendEmailSubscribe
-    = async ({ subscribe }) => {
-        try {
-            await transportSubscribe.sendMail({
-                from: "Karan Kashyap <kj382542@gmail.com>",
-                to: subscribe,
-                subject: "Thank You!",
-                html: `
-                        <p>Karan Kashyap</p>
-            `
-            });
+const sendEmailSubscribe = async ({ subscribe }) => {
+    try {
+        await transportSubscribe.sendMail({
+            from: `Karan Kashyap <${process.env.EMAIL_USER}>`,
+            to: subscribe,
+            subject: "Thank You!",
+            html: `<p>Thank you for subscribing!</p><p>Best Regards,</p><p>Karan Kashyap</p>`
+        });
 
-            console.log(`Email sent successfully to ${email}`);
-        } catch (error) {
-            console.error("Error sending email: ", error);
-        }
-    };
+        console.log(`✅ Email sent successfully to ${subscribe}`);
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
+};
 
-
-
-
+module.exports = { sendEmail, sendEmailSubscribe };
