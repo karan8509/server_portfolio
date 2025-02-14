@@ -35,8 +35,8 @@ app.post("/userSubscribe", async (req, res) => {
 
 
 app.get("/", (req, res) => {
-    res.send("Succes")
-})
+    res.send(`Server is running on port ${PORT}. Email: ${EMAIL_USER}`);
+});
 app.listen(PORT, () => {
     console.log(`server runing on http://localhost:${PORT}`)
 })
