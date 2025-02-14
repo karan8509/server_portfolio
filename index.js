@@ -33,6 +33,10 @@ app.post("/userSubscribe", async (req, res) => {
     }
 })
 
+
+app.get("/", (req, res) => {
+    res.send("Succes")
+})
 app.listen(PORT, () => {
     console.log(`server runing on http://localhost:${PORT}`)
 })
