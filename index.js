@@ -1,7 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser");
-const {sendEmail }= require("./config/mailer");
+const {sendEmail }  = require("./config/mailer");
 const { sendEmailSubscribe } = require("./config/mailer");
 require("dotenv").config()
 const app = express();
@@ -23,7 +23,6 @@ app.post("/userSend", async (req, res) => {
 app.post("/userSubscribe", async (req, res) => {
     try {
         const { subscribe } = req.body
-
         console.log("------>", subscribe)
         await sendEmailSubscribe({ subscribe })
     } catch (error) {
