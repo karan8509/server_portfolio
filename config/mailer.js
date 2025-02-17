@@ -12,6 +12,7 @@ const transport = nodemailer.createTransport({
 });
 
 const sendEmail = async ({ name, email, textarea }) => {
+    console.log("-------[>",name)
     try {
         await transport.sendMail({
             from: `Karan Kashyap <${process.env.EMAIL_USER}>`,
@@ -34,7 +35,7 @@ const sendEmail = async ({ name, email, textarea }) => {
 };
 
 const transportSubscribe = nodemailer.createTransport({
-    service: "gmail",
+    service: "gmail", 
     port: 587,
     secure: false,
     auth: {

@@ -1,7 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser");
-const sendEmail = require("./config/mailer");
+const {sendEmail }= require("./config/mailer");
 const { sendEmailSubscribe } = require("./config/mailer");
 require("dotenv").config()
 const app = express();
@@ -12,11 +12,10 @@ const PORT = process.env.PORT || 8080;
 
 app.post("/userSend", async (req, res) => {
     try {
-        const { name, email, textarea, subscribe } = req.body
-        await sendEmail({ name, email, textarea, subscribe })
+        const { name, email, textarea,  } = req.body
+        await sendEmail({ name, email, textarea,  })
     } catch (error) {
-        console.log("----> ", error.message
-        )
+        console.log( "error" )
     }
 })
 
